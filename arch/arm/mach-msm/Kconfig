@@ -317,5 +317,14 @@ config ARCH_MSM8909
 	select MSM_BIMC_BWMON
 	select ARCH_WANT_KMAP_ATOMIC_FLUSH
 
+config MSM_HOTPLUG
+	   config MSM_HOTPLUG
+	bool "MSM hotplug driver"
+	depends on HOTPLUG_CPU
+	default n
+	help
+	  The MSM hotplug driver controls on-/offlining of additional cores based
+	  on current cpu load.
+
 endmenu
 endif
