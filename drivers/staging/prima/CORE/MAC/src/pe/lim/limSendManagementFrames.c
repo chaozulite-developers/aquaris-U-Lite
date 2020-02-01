@@ -2588,6 +2588,9 @@ limSendAssocReqMgmtFrame(tpAniSirGlobal   pMac,
 
         mlmAssocCnf.resultCode = eSIR_SME_RESOURCES_UNAVAILABLE;
 
+        palPktFree( pMac->hHdd, HAL_TXRX_FRM_802_11_MGMT,
+                ( void* ) pFrame, ( void* ) pPacket );
+
         limPostSmeMessage( pMac, LIM_MLM_ASSOC_CNF,
                 ( tANI_U32* ) &mlmAssocCnf);
 
@@ -3812,11 +3815,9 @@ limSendAuthMgmtFrame(tpAniSirGlobal pMac,
                      * for challenge text.
                      */
 
-                    bodyLen  = SIR_MAC_AUTH_FRAME_INFO_LEN +
-                               SIR_MAC_SAP_AUTH_CHALLENGE_LENGTH +
-                               SIR_MAC_CHALLENGE_ID_LEN;
                     frameLen = sizeof(tSirMacMgmtHdr) +
-                               bodyLen;
+                               sizeof(tSirMacAuthFrame);
+                    bodyLen  = sizeof(tSirMacAuthFrameBody);
                 }
 
                 break;
